@@ -1,6 +1,8 @@
 import "reflect-metadata";
+import "dotenv/config";
 import { DataSource } from "typeorm";
-import entities from "models/entities/index";
+import entities from "../models/entities/index";
+import migrations from "../migrations/index";
 
 const AppDataSource = new DataSource({
   type: "mysql",
@@ -11,9 +13,9 @@ const AppDataSource = new DataSource({
   database: process.env.MYSQL_DATABASE,
   synchronize: true,
   logging: true,
-  entities: entities,
-  migrations: [],
+  entities,
+  migrations,
   subscribers: [],
 });
 
-export default AppDataSource
+export default AppDataSource;

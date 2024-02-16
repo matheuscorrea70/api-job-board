@@ -1,4 +1,6 @@
 import { Company } from "./Company.entity";
 import { Job } from "./Job.entity";
+import { Country } from "./Country.entity";
+import { Province } from "./Province.entity";
 
-export default [Job, Company];
+export default [Country, Province, Company, Job];
