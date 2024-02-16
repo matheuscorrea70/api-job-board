@@ -1,4 +1,4 @@
-import { CompanyEntity } from "./CompanyEntity";
-import { JobEntity } from "./JobEntity";
+import { Company } from "./Company";
+import { Job } from "./Job";
 
-export default [JobEntity, CompanyEntity];
+export default [Job, Company];

@@ -2,33 +2,39 @@ import CompanyModel from "models/CompanyModel";
 import { Request, Response } from "express";
 
 class CompanyController {
-  static getOne = (request: Request, response: Response) => {
+  static getOne = async (request: Request, response: Response) => {
     const id = Number(request.params.id);
+    const company = await CompanyModel.findOne(id)
 
-    response.json(CompanyModel.findOne(id));
+    response.json(company);
   };
 
-  static getAll = (request: Request, response: Response) => {
-    response.json(CompanyModel.findAll());
+  static getAll = async (request: Request, response: Response) => {
+    const companies = await CompanyModel.findAll()
+
+    response.json(companies);
   };
 
-  static post = (request: Request, response: Response) => {
+  static post = async (request: Request, response: Response) => {
     const name = request.body.name;
+    const company = await CompanyModel.insert(name)
 
-    response.json(CompanyModel.insert(name));
+    response.json(company);
   };
 
-  static put = (request: Request, response: Response) => {
+  static put = async (request: Request, response: Response) => {
     const id = Number(request.params.id);
     const name = request.body.name;
+    const company = await CompanyModel.update(id, name)
 
-    response.json(CompanyModel.update(id, name));
+    response.json(company);
   };
 
-  static delete = (request: Request, response: Response) => {
+  static delete = async (request: Request, response: Response) => {
     const id = Number(request.params.id);
+    await CompanyModel.remove(id)
 
-    response.json(CompanyModel.remove(id));
+    response.json();
   };
 }
 

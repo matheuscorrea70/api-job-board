@@ -1,37 +1,38 @@
-import { CompanyEntity } from "entities/CompanyEntity";
+import { Company } from "entities/Company";
+import dataSource from "configs/dataSource";
 
 class CompanyModel {
   static insert = (name: string) => {
-    const company = new CompanyEntity();
+    const company = new Company();
 
     company.name = name;
 
-    return company.save();
+    return dataSource.manager.save(company);
   };
 
   static update = async (id: number, name: string) => {
-    const company = new CompanyEntity();
+    const company = new Company();
 
     company.id = id;
     company.name = name;
 
-    return company.save();
+    return dataSource.manager.save(company);
   };
 
   static findOne = async (id: number) => {
-    return CompanyEntity.findOneBy({
+    return dataSource.manager.findOneBy(Company, {
       id,
     });
   };
 
   static findAll = async () => {
-    return CompanyEntity.find();
+    return dataSource.manager.find(Company);
   };
 
   static remove = async (id: number) => {
     const company = await CompanyModel.findOne(id);
 
-    return company.remove();
+    return dataSource.manager.remove(company);
   };
 }
 
