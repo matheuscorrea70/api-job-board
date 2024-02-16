@@ -1,40 +1,43 @@
 import CompanyModel from "models/CompanyModel";
 import { Request, Response } from "express";
+import { BaseController } from "./BaseController";
 
-class CompanyController {
-  static getOne = async (request: Request, response: Response) => {
+class CompanyController extends BaseController<CompanyModel> {
+  model = new CompanyModel()
+  
+  getOne = async (request: Request, response: Response) => {
     const id = Number(request.params.id);
-    const company = await CompanyModel.repository.findOneBy({ id });
+    const company = await this.model.repository.findOneBy({ id });
 
     response.json(company);
   };
 
-  static getAll = async (request: Request, response: Response) => {
-    const companies = await CompanyModel.repository.find();
+  getAll = async (request: Request, response: Response) => {
+    const companies = await this.model.repository.find();
 
     response.json(companies);
   };
 
-  static post = async (request: Request, response: Response) => {
+  post = async (request: Request, response: Response) => {
     const name = request.body.name;
-    const company = await CompanyModel.repository.save({ name });
+    const company = await this.model.repository.save({ name });
 
     response.json(company);
   };
 
-  static put = async (request: Request, response: Response) => {
+  put = async (request: Request, response: Response) => {
     const id = Number(request.params.id);
     const name = request.body.name;
-    const company = await CompanyModel.repository.save({ id, name });
+    const company = await this.model.repository.save({ id, name });
 
     response.json(company);
   };
 
-  static delete = async (request: Request, response: Response) => {
+  delete = async (request: Request, response: Response) => {
     const id = Number(request.params.id);
-    const company = await CompanyModel.repository.findOneBy({ id });
+    const company = await this.model.repository.findOneBy({ id });
 
-    await CompanyModel.repository.remove(company);
+    await this.model.repository.remove(company);
 
     response.json();
   };
