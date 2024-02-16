@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 
-export abstract class BaseController<Model> {
+export abstract class BaseController<Model = undefined> {
   abstract model: Model;
 
   validateRequest = (request: Request, response: Response) => {

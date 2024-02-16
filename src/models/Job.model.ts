@@ -1,11 +1,11 @@
 import { Job } from "models/entities/Job.entity";
 import dataSource from "configs/dataSource";
-import CompanyModel from "./Company.model";
+import { CompanyModel } from "./Company.model";
 import { SaveJobPayload } from "./types/job.types";
 import { BaseModel } from "./Base.model";
 import { Company } from "./entities/Company.entity";
 
-class JobModel extends BaseModel<Job> {
+export class JobModel extends BaseModel<Job> {
   _repository = dataSource.getRepository(Job);
 
   save = async (data: SaveJobPayload) => {
@@ -30,4 +30,3 @@ class JobModel extends BaseModel<Job> {
   };
 }
 
-export default JobModel;

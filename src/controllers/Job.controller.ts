@@ -1,8 +1,8 @@
-import JobModel from "models/Job.model";
+import { JobModel } from "models/Job.model";
 import { Request, Response } from "express";
 import { BaseController } from "./Base.controller";
 
-class JobController extends BaseController<JobModel> {
+export class JobController extends BaseController<JobModel> {
   model = new JobModel();
 
   getBodyJob = (request: Request) => {
@@ -74,7 +74,7 @@ class JobController extends BaseController<JobModel> {
     if (!this.validateRequest(request, response)) {
       return;
     }
-    
+
     const id = this.getParamId(request);
     const job = await this.model.findOneBy({ id });
 
@@ -85,5 +85,3 @@ class JobController extends BaseController<JobModel> {
     response.json();
   };
 }
-
-export default JobController;

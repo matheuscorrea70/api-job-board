@@ -1,5 +1,5 @@
 import { Router } from "express";
-import CompanyController from "controllers/Company.controller";
+import { CompanyController } from "controllers/Company.controller";
 import { paramIdValidator } from "utils/validators/paramId.validator";
 import { bodyCompanyValidator } from "utils/validators/company.validator";
 

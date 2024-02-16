@@ -8,6 +8,8 @@ import {
 export abstract class BaseModel<Entity> {
   protected abstract _repository: Repository<Entity>;
 
+  find = async (options?: FindManyOptions<Entity>) => this._repository.find(options);
+
   findWithPagination = async (
     page: number,
     limit: number,
@@ -20,7 +22,7 @@ export abstract class BaseModel<Entity> {
     const lastPage = Math.ceil(count / limit);
     const nextPage = page < lastPage ? page + 1 : undefined;
 
-    const jobs = await this._repository.find({
+    const data = await this._repository.find({
       take: limit,
       skip,
       ...options,
@@ -30,7 +32,7 @@ export abstract class BaseModel<Entity> {
       total: count,
       lastPage,
       ...(nextPage && { nextPage }),
-      data: jobs,
+      data,
     };
   };
 

@@ -1,9 +1,9 @@
-import CompanyModel from "models/Company.model";
+import { CompanyModel } from "models/Company.model";
 import { Request, Response } from "express";
 import { BaseController } from "./Base.controller";
 import { getPaginationParams } from "utils/params/getPaginationParams";
 
-class CompanyController extends BaseController<CompanyModel> {
+export class CompanyController extends BaseController<CompanyModel> {
   model = new CompanyModel();
 
   getBodyCompany = (request: Request) => {
@@ -71,5 +71,3 @@ class CompanyController extends BaseController<CompanyModel> {
     response.json();
   };
 }
-
-export default CompanyController;

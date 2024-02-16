@@ -1,5 +1,5 @@
 import { Router } from "express";
-import JobController from "controllers/Job.controller";
+import { JobController } from "controllers/Job.controller";
 import { queryPaginationValidator } from "utils/validators/queryPagination.validator";
 import { bodyJobValidator } from "utils/validators/job.validator";
 import { paramIdValidator } from "utils/validators/paramId.validator";
