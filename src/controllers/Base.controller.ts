@@ -7,6 +7,8 @@ export abstract class BaseController<Model> {
   validateRequest = (request: Request, response: Response) => {
     const result = validationResult(request);
 
+    console.log('result', result)
+
     if (!result.isEmpty()) {
       response.send({ errors: result.array() });
 
@@ -14,5 +16,9 @@ export abstract class BaseController<Model> {
     }
 
     return true
+  }
+
+  getParamId = <T = number>(request: Request) => {
+    return request.params.id as T
   }
 }
