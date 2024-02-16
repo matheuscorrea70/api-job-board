@@ -1,4 +1,4 @@
 import { InsertCountries1708109251574 } from "./1708109251574-InsertCountries";
-import { InsertProvincies1708109258909 } from "./1708109258909-InsertProvincies";
+import { InsertProvinces1708109258909 } from "./1708109258909-InsertProvinces";
 
-export default [InsertCountries1708109251574, InsertProvincies1708109258909];
+export default [InsertCountries1708109251574, InsertProvinces1708109258909];

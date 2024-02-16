@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class InsertProvincies1708109258909 implements MigrationInterface {
+export class InsertProvinces1708109258909 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`INSERT INTO province (id, countryId, name) VALUES
     (1, 'AD', 'Parròquia de Sant Julià de Lòria'),
@@ -3878,6 +3878,6 @@ export class InsertProvincies1708109258909 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`TRUNCATE provincie`);
+    await queryRunner.query(`TRUNCATE province`);
   }
 }
