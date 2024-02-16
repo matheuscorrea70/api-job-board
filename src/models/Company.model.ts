@@ -1,6 +1,6 @@
-import { Company } from "models/entities/Company";
+import { Company } from "models/entities/Company.entity";
 import dataSource from "configs/dataSource";
-import { BaseModel } from "./BaseModel";
+import { BaseModel } from "./Base.model";
 
 class CompanyModel extends BaseModel<Company> {
   repository = dataSource.getRepository(Company);

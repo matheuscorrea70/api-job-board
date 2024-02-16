@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import company from './company';
-import job from './job';
+import company from './company.route';
+import job from './job.route';
 
 const routes = Router();
 

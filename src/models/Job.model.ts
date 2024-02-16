@@ -1,8 +1,8 @@
-import { Job } from "models/entities/Job";
+import { Job } from "models/entities/Job.entity";
 import dataSource from "configs/dataSource";
-import CompanyModel from "./CompanyModel";
-import { SaveJobPayload } from "./types/job";
-import { BaseModel } from "./BaseModel";
+import CompanyModel from "./Company.model";
+import { SaveJobPayload } from "./types/job.types";
+import { BaseModel } from "./Base.model";
 
 class JobModel extends BaseModel<Job> {
   repository = dataSource.getRepository(Job);

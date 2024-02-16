@@ -1,4 +1,4 @@
-import { Company } from "./Company";
-import { Job } from "./Job";
+import { Company } from "./Company.entity";
+import { Job } from "./Job.entity";
 
 export default [Job, Company];

@@ -1,6 +1,6 @@
-import CompanyModel from "models/CompanyModel";
+import CompanyModel from "models/Company.model";
 import { Request, Response } from "express";
-import { BaseController } from "./BaseController";
+import { BaseController } from "./Base.controller";
 
 class CompanyController extends BaseController<CompanyModel> {
   model = new CompanyModel()
