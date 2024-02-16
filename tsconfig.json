@@ -13,7 +13,6 @@
     "paths": {
       "configs/*": ["src/configs/*"],
       "controllers/*": ["src/controllers/*"],
-      "entities/*": ["src/entities/*"],
       "models/*": ["src/models/*"],
       "routes/*": ["src/routes/*"],
       "utils/*": ["src/utils/*"]
