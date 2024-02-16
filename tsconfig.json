@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "lib": ["es5", "es6"],
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "configs/*": ["src/configs/*"],
+      "controllers/*": ["src/controllers/*"],
+      "entities/*": ["src/entities/*"],
+      "models/*": ["src/models/*"],
+      "routes/*": ["src/routes/*"],
+      "utils/*": ["src/utils/*"]
+    }
+  }
+}
