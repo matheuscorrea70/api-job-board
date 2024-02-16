@@ -18,7 +18,7 @@ export abstract class BaseController<Model = undefined> {
     return true
   }
 
-  getParamId = <T = number>(request: Request) => {
-    return request.params.id as T
+  getParamId = (request: Request) => {
+    return Number(request.params.id)
   }
 }

@@ -1,3 +1,4 @@
+import { CompanySize } from "models/types/company.types";
 import {
   Column,
   Entity,
@@ -13,7 +14,14 @@ export class Company {
   id?: number;
 
   @Column()
-  name: string = "";
+  name?: string;
+
+  @Column({
+    type: "enum",
+    enum: CompanySize,
+    nullable: true
+  })
+  size: CompanySize | null = null;
 
   @CreateDateColumn()
   createdDate?: string;

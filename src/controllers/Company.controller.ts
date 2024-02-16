@@ -2,14 +2,16 @@ import { CompanyModel } from "models/Company.model";
 import { Request, Response } from "express";
 import { BaseController } from "./Base.controller";
 import { getPaginationParams } from "utils/params/getPaginationParams";
+import { CompanySize } from "models/types/company.types";
 
 export class CompanyController extends BaseController<CompanyModel> {
   model = new CompanyModel();
-
+  
   getBodyCompany = (request: Request) => {
     const name = request.body.name as string;
+    const size = request.body.size as CompanySize;
 
-    return { name };
+    return { name, size };
   };
 
   getOne = async (request: Request, response: Response) => {

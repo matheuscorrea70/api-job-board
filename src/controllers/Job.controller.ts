@@ -1,23 +1,39 @@
 import { JobModel } from "models/Job.model";
 import { Request, Response } from "express";
 import { BaseController } from "./Base.controller";
+import {
+  JobLevel,
+  JobLocationType,
+  JobType,
+  SaveJobPayload,
+} from "models/types/job.types";
 
 export class JobController extends BaseController<JobModel> {
   model = new JobModel();
 
-  getBodyJob = (request: Request) => {
-    const title = request.body.title as string;
-    const description = request.body.description as string;
-    const url = request.body.url as string;
-    const companyId = request.body?.company?.id as number;
-    const companyName = request.body?.company?.name as string;
-    const countryId = request.body?.country?.id as string;
-    const provinceId = request.body?.province?.id as number;
+  getBodyJob = (request: Request): SaveJobPayload => {
+    const body = request.body || {};
+
+    const title = body.title as string;
+    const description = body.description as string;
+    const url = body.url as string;
+    const companyId = body?.company?.id as number;
+    const companyName = body?.company?.name as string;
+    const countryId = body?.country?.id as string;
+    const provinceId = body?.province?.id as number;
+    const type = body.type as JobType;
+    const locationType = body.locationType as JobLocationType;
+    const level = body.level as JobLevel;
+    const skills = body.skills as string[];
 
     return {
       title,
       description,
       url,
+      type,
+      locationType,
+      level,
+      skills,
       company: {
         id: companyId,
         name: companyName,
@@ -35,7 +51,7 @@ export class JobController extends BaseController<JobModel> {
     }
 
     const id = this.getParamId(request);
-    const job = await this.model.findOneBy({ id });
+    const job = await this.model.findOne({ where: { id } });
 
     response.json(job);
   };
@@ -45,10 +61,8 @@ export class JobController extends BaseController<JobModel> {
       return;
     }
 
-    const id = this.getParamId(request);
     const payload = this.getBodyJob(request);
-
-    const job = await this.model.save({ ...payload, id });
+    const job = await this.model.save(payload);
 
     response.json(job);
   };
@@ -58,8 +72,10 @@ export class JobController extends BaseController<JobModel> {
       return;
     }
 
+    
+    const id = this.getParamId(request);
     const payload = this.getBodyJob(request);
-    const job = await this.model.save(payload);
+    const job = await this.model.save({ ...payload, id });
 
     response.json(job);
   };

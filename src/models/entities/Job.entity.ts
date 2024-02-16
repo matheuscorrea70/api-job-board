@@ -6,10 +6,14 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
 import { Company } from "./Company.entity";
 import { Country } from "./Country.entity";
 import { Province } from "./Province.entity";
+import { JobType, JobLocationType, JobLevel } from "models/types/job.types";
+import { Skill } from "./Skill.entity";
 
 @Entity()
 export class Job {
@@ -17,13 +21,31 @@ export class Job {
   id?: number;
 
   @Column()
-  title: string = "";
+  title?: string;
 
   @Column("text")
-  description: string = "";
+  description?: string;
 
   @Column()
-  url: string = "";
+  url?: string;
+
+  @Column({
+    type: "enum",
+    enum: JobType,
+  })
+  type?: JobType;
+
+  @Column({
+    type: "enum",
+    enum: JobLocationType,
+  })
+  locationType?: JobLocationType;
+
+  @Column({
+    type: "enum",
+    enum: JobLevel,
+  })
+  level?: JobLevel;
 
   @CreateDateColumn()
   createdDate?: string;
@@ -34,12 +56,16 @@ export class Job {
   @DeleteDateColumn()
   deletedDate?: string;
 
+  @ManyToMany(() => Skill)
+  @JoinTable()
+  skills?: Skill[];
+
   @ManyToOne(() => Company, (company) => company.name, { nullable: false })
-  company: Company | null = null;
+  company?: Company;
 
   @ManyToOne(() => Country, (country) => country.name, { nullable: false })
-  country: Country | null = null;
+  country?: Country;
 
   @ManyToOne(() => Province, (province) => province.name, { nullable: true })
-  province: Province | null = null;
+  province?: Province;
 }
