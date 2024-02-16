@@ -10,4 +10,10 @@ export const bodyJobValidator = () => [
   }),
   body("company.id").isNumeric().optional(),
   body("company.name").isString().optional(),
+
+  body("country").isObject(),
+  body("country.id").isString(),
+
+  body("province").isObject().optional(),
+  body("province.id").isNumeric().optional(),
 ];

@@ -9,8 +9,10 @@ export class JobController extends BaseController<JobModel> {
     const title = request.body.title as string;
     const description = request.body.description as string;
     const url = request.body.url as string;
-    const companyId = request.body.company.id as number;
-    const companyName = request.body.company.name as string;
+    const companyId = request.body?.company?.id as number;
+    const companyName = request.body?.company?.name as string;
+    const countryId = request.body?.country?.id as string;
+    const provinceId = request.body?.province?.id as number;
 
     return {
       title,
@@ -20,6 +22,10 @@ export class JobController extends BaseController<JobModel> {
         id: companyId,
         name: companyName,
       },
+      country: {
+        id: countryId,
+      },
+      ...(provinceId && { province: { id: provinceId } }),
     };
   };
 
