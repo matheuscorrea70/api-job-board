@@ -6,7 +6,7 @@ import { SaveCompanyPayload } from "./types/company.types";
 export class CompanyModel extends BaseModel<Company> {
   _repository = dataSource.getRepository(Company);
 
-  save = (payload: SaveCompanyPayload) => {
+  save(payload: SaveCompanyPayload) {
     return this._repository.save(payload);
-  };
+  }
 }

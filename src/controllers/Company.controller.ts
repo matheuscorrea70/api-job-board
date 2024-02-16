@@ -67,7 +67,7 @@ export class CompanyController extends BaseController<CompanyModel> {
     const company = await this.model.findOneBy({ id });
 
     if (company) {
-      await this.model.remove(company);
+      await this.model.softRemove(company);
     }
 
     response.json();

@@ -9,13 +9,15 @@ import {
 export abstract class BaseModel<Entity extends ObjectLiteral> {
   protected abstract _repository: Repository<Entity>;
 
-  find = async (options?: FindManyOptions<Entity>) => this._repository.find(options);
+  find(options?: FindManyOptions<Entity>) {
+    return this._repository.find(options);
+  }
 
-  findWithPagination = async (
+  async findWithPagination(
     page: number,
     limit: number,
     options?: FindManyOptions<Entity>
-  ) => {
+  ) {
     const skip = (page - 1) * limit;
 
     const count = await this._repository.count(options);
@@ -35,13 +37,17 @@ export abstract class BaseModel<Entity extends ObjectLiteral> {
       ...(nextPage && { nextPage }),
       data,
     };
-  };
+  }
 
-  findOneBy = async (
-    where: FindOptionsWhere<Entity> | FindOptionsWhere<Entity>[]
-  ) => this._repository.findOneBy(where);
+  findOneBy(where: FindOptionsWhere<Entity> | FindOptionsWhere<Entity>[]) {
+    return this._repository.findOneBy(where);
+  }
 
-  remove = (entity: Entity, options?: RemoveOptions) => {
+  remove(entity: Entity, options?: RemoveOptions) {
     return this._repository.remove(entity, options);
-  };
+  }
+
+  softRemove(entity: Entity, options?: RemoveOptions) {
+    return this._repository.softRemove(entity, options);
+  }
 }

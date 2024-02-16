@@ -29,4 +29,3 @@ export class JobModel extends BaseModel<Job> {
     return this._repository.save({ ...data, company: companyToSave });
   };
 }
-

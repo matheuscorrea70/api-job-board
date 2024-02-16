@@ -85,7 +85,7 @@ export class JobController extends BaseController<JobModel> {
     const job = await this.model.findOneBy({ id });
 
     if (job) {
-      await this.model.remove(job);
+      await this.model.softRemove(job);
     }
 
     response.json();

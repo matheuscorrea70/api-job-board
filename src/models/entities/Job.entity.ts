@@ -1,4 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from "typeorm";
 import { Company } from "./Company.entity";
 import { Country } from "./Country.entity";
 import { Province } from "./Province.entity";
@@ -16,6 +24,15 @@ export class Job {
 
   @Column()
   url: string = "";
+
+  @CreateDateColumn()
+  createdDate?: string;
+
+  @UpdateDateColumn()
+  updatedDate?: string;
+
+  @DeleteDateColumn()
+  deletedDate?: string;
 
   @ManyToOne(() => Company, (company) => company.name, { nullable: false })
   company: Company | null = null;
