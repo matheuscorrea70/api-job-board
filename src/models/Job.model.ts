@@ -12,18 +12,18 @@ export class JobModel extends BaseModel<Job> {
     const companyModel = new CompanyModel();
 
     let companyToSave = { id: data.company.id };
-    let companyEntity: Company | undefined;
+    let companyEntity: Company | null = null;
 
     if (!data.company.id) {
       companyEntity = await companyModel.findOneBy({ name: data.company.name });
 
-      if (!companyEntity) {
+      if (!companyEntity && data.company.name) {
         companyEntity = await companyModel.save({
           name: data.company.name,
         });
       }
 
-      companyToSave = { id: companyEntity.id };
+      companyEntity?.id && (companyToSave = { id: companyEntity.id });
     }
 
     return this._repository.save({ ...data, company: companyToSave });

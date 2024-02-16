@@ -1,11 +1,12 @@
 import {
   FindManyOptions,
   FindOptionsWhere,
+  ObjectLiteral,
   RemoveOptions,
   Repository,
 } from "typeorm";
 
-export abstract class BaseModel<Entity> {
+export abstract class BaseModel<Entity extends ObjectLiteral> {
   protected abstract _repository: Repository<Entity>;
 
   find = async (options?: FindManyOptions<Entity>) => this._repository.find(options);

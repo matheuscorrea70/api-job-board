@@ -4,17 +4,17 @@ import { Company } from "./Company.entity";
 @Entity()
 export class Job {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column()
-  title: string;
+  title: string = '';
 
   @Column("text")
-  description: string;
+  description: string = '';
 
   @Column()
-  url: string;
+  url: string = '';
 
   @ManyToOne(() => Company, (company) => company.name)
-  company: Company
+  company?: Company
 }

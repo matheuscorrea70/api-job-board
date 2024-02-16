@@ -66,7 +66,9 @@ export class CompanyController extends BaseController<CompanyModel> {
     const id = this.getParamId(request);
     const company = await this.model.findOneBy({ id });
 
-    await this.model.remove(company);
+    if (company) {
+      await this.model.remove(company);
+    }
 
     response.json();
   };
