@@ -5,13 +5,41 @@ import {
   JobLevel,
   JobLocationType,
   JobType,
-  SaveJobPayload,
+  TJob,
+  SearchJobPayload,
 } from "models/types/job.types";
+import { getPaginationParams } from "utils/params/getPaginationParams";
+import { Like } from "typeorm";
 
 export class JobController extends BaseController<JobModel> {
   model = new JobModel();
 
-  getBodyJob = (request: Request): SaveJobPayload => {
+  getSearchParams = (request: Request) => {
+    const query = request.query || {};
+
+    return {
+      ...(query.title && { title: Like(`%${query.title}%`) }),
+      ...(query.description && { description: Like(`%${query.description}%`) }),
+      ...(query.type && { type: query.type as JobType }),
+      ...(query.locationType && {
+        locationType: query.locationType as JobLocationType,
+      }),
+      ...(query.level && { level: query.level as JobLevel }),
+      ...(query.company && {
+        company: query.company as {
+          id?: number;
+          name?: string;
+        },
+      }),
+      ...(query.country && {
+        country: query.country as {
+          id: string;
+        },
+      }),
+    };
+  };
+
+  getBodyJob = (request: Request): TJob => {
     const body = request.body || {};
 
     const title = body.title as string;
@@ -72,7 +100,6 @@ export class JobController extends BaseController<JobModel> {
       return;
     }
 
-    
     const id = this.getParamId(request);
     const payload = this.getBodyJob(request);
     const job = await this.model.save({ ...payload, id });
@@ -85,9 +112,10 @@ export class JobController extends BaseController<JobModel> {
       return;
     }
 
-    const page = Number(request.query.page || 1);
-    const limit = Number(request.query.limit || 10);
-    const jobList = await this.model.findWithPagination(page, limit);
+    const { page, limit } = getPaginationParams(request);
+    const where = this.getSearchParams(request);
+
+    const jobList = await this.model.findWithPagination(page, limit, { where });
 
     response.json(jobList);
   };

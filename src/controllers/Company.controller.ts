@@ -4,7 +4,7 @@ import { BaseController } from "./Base.controller";
 import { getPaginationParams } from "utils/params/getPaginationParams";
 import {
   CompanySize,
-  SaveCompanyPayload,
+  TCompany,
   SearchCompanyPayload,
 } from "models/types/company.types";
 
@@ -20,7 +20,7 @@ export class CompanyController extends BaseController<CompanyModel> {
     };
   };
 
-  getBodyCompany = (request: Request): SaveCompanyPayload => {
+  getBodyCompany = (request: Request): TCompany => {
     const body = request.body || {}
 
     return {

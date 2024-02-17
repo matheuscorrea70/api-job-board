@@ -1,9 +1,8 @@
 import { Job } from "models/entities/Job.entity";
 import dataSource from "configs/dataSource";
 import { CompanyModel } from "./Company.model";
-import { SaveJobPayload } from "./types/job.types";
+import { TJob } from "./types/job.types";
 import { BaseModel } from "./Base.model";
-import { Company } from "./entities/Company.entity";
 import { Skill } from "./entities/Skill.entity";
 import { SkillModel } from "./Skill.model";
 import { FindOneOptions } from "typeorm";
@@ -31,28 +30,25 @@ export class JobModel extends BaseModel<Job> {
     return [...loadedSkills, ...savedSkills];
   }
 
-  private async _saveCompany(data: SaveJobPayload) {
+  private async _saveCompany(data: TJob) {
+    if (data.company.id) {
+      return data.company
+    }
+
     const companyModel = new CompanyModel();
 
-    let companyToSave = { id: data.company.id };
-    let companyEntity: Company | null = null;
+    let companyEntity = await companyModel.findOneBy({ name: data.company.name });
 
-    if (!data.company.id) {
-      companyEntity = await companyModel.findOneBy({ name: data.company.name });
-
-      if (!companyEntity && data.company.name) {
-        companyEntity = await companyModel.save({
-          name: data.company.name,
-        });
-      }
-
-      companyEntity?.id && (companyToSave = { id: companyEntity.id });
+    if (!companyEntity && data.company.name) {
+      companyEntity = await companyModel.save({
+        name: data.company.name,
+      });
     }
 
     return companyEntity || undefined;
   }
 
-  save(data: SaveJobPayload) {
+  save(data: TJob) {
     return dataSource.transaction(async () => {
       const [company, skills] = await Promise.all([
         this._saveCompany(data),

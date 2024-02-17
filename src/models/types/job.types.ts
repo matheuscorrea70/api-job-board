@@ -23,7 +23,20 @@ export enum JobLevel {
   Executive = "Executive",
 }
 
-export type SaveJobPayload = {
+export type TJobCompany = {
+  id?: number;
+  name: string;
+};
+
+export type TJobCountry = {
+  id: string;
+};
+
+export type TJobProvince = {
+  id: number;
+};
+
+export type TJob = {
   id?: number;
   title: string;
   description: string;
@@ -32,14 +45,9 @@ export type SaveJobPayload = {
   locationType: JobLocationType;
   level: JobLevel;
   skills: string[];
-  company: {
-    id?: number;
-    name?: string;
-  };
-  country: {
-    id: string
-  }
-  province?: {
-    id: number
-  }
+  company: TJobCompany;
+  country: TJobCountry;
+  province?: TJobProvince;
 };
+
+export type SearchJobPayload = Partial<TJob>;

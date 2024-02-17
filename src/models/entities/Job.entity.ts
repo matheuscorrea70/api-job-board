@@ -20,32 +20,35 @@ export class Job {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column()
-  title?: string;
+  @Column({ default: "" })
+  title: string = "";
 
   @Column("text")
-  description?: string;
+  description: string = "";
 
-  @Column()
-  url?: string;
+  @Column({ default: "" })
+  url: string = "";
 
   @Column({
     type: "enum",
     enum: JobType,
+    default: JobType.FullTime,
   })
-  type?: JobType;
+  type: JobType = JobType.FullTime;
 
   @Column({
     type: "enum",
     enum: JobLocationType,
+    default: JobLocationType.Remote,
   })
-  locationType?: JobLocationType;
+  locationType: JobLocationType = JobLocationType.Remote;
 
   @Column({
     type: "enum",
     enum: JobLevel,
+    default: JobLevel.MidSenior,
   })
-  level?: JobLevel;
+  level: JobLevel = JobLevel.MidSenior;
 
   @CreateDateColumn()
   createdDate?: string;

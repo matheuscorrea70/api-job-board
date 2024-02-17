@@ -4,10 +4,10 @@ export enum CompanySize {
   Large = "Large",
 }
 
-export type SaveCompanyPayload = {
+export type TCompany = {
   id?: number;
   name: string;
   size?: CompanySize;
 };
 
-export type SearchCompanyPayload = Partial<SaveCompanyPayload>
+export type SearchCompanyPayload = Partial<TCompany>

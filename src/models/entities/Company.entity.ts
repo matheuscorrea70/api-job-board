@@ -22,7 +22,7 @@ export class Company {
     nullable: true,
     default: null
   })
-  size: CompanySize | null = null;
+  size?: CompanySize | null = null;
 
   @CreateDateColumn()
   createdDate?: string;
