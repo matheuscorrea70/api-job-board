@@ -2,16 +2,31 @@ import { CompanyModel } from "models/Company.model";
 import { Request, Response } from "express";
 import { BaseController } from "./Base.controller";
 import { getPaginationParams } from "utils/params/getPaginationParams";
-import { CompanySize } from "models/types/company.types";
+import {
+  CompanySize,
+  SaveCompanyPayload,
+  SearchCompanyPayload,
+} from "models/types/company.types";
 
 export class CompanyController extends BaseController<CompanyModel> {
   model = new CompanyModel();
-  
-  getBodyCompany = (request: Request) => {
-    const name = request.body.name as string;
-    const size = request.body.size as CompanySize;
 
-    return { name, size };
+  getSearchParams = (request: Request): SearchCompanyPayload => {
+    const query = request.query || {}
+
+    return {
+      ...(query.name && { name: (query.name as string) }),
+      ...(query.size && { size: (query.size as CompanySize) }),
+    };
+  };
+
+  getBodyCompany = (request: Request): SaveCompanyPayload => {
+    const body = request.body || {}
+
+    return {
+      name: body.name || "",
+      size: body.size || null,
+    };
   };
 
   getOne = async (request: Request, response: Response) => {
@@ -30,9 +45,12 @@ export class CompanyController extends BaseController<CompanyModel> {
       return;
     }
 
+    const where = this.getSearchParams(request);
     const { page, limit } = getPaginationParams(request);
 
-    const companies = await this.model.findWithPagination(page, limit);
+    const companies = await this.model.findWithPagination(page, limit, {
+      where,
+    });
 
     response.json(companies);
   };

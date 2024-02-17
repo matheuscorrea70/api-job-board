@@ -13,13 +13,14 @@ export class Company {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column()
-  name?: string;
+  @Column({ default: '' })
+  name: string = '';
 
   @Column({
     type: "enum",
     enum: CompanySize,
-    nullable: true
+    nullable: true,
+    default: null
   })
   size: CompanySize | null = null;
 

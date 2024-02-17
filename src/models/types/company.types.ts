@@ -9,3 +9,5 @@ export type SaveCompanyPayload = {
   name: string;
   size?: CompanySize;
 };
+
+export type SearchCompanyPayload = Partial<SaveCompanyPayload>
