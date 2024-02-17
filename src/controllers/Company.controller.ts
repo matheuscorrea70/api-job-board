@@ -1,5 +1,5 @@
 import { CompanyModel } from "models/Company.model";
-import { Request, Response } from "express";
+import { Request } from "express";
 import { BaseController } from "./Base.controller";
 import { getPaginationParams } from "utils/params/getPaginationParams";
 import {
@@ -7,6 +7,7 @@ import {
   TCompany,
   SearchCompanyPayload,
 } from "models/types/company.types";
+import { ActionFunc } from "src/types/request.type";
 
 export class CompanyController extends BaseController<CompanyModel> {
   model = new CompanyModel();
@@ -29,7 +30,7 @@ export class CompanyController extends BaseController<CompanyModel> {
     };
   };
 
-  getOne = async (request: Request, response: Response) => {
+  getOne: ActionFunc = async (request, response) => {
     if (!this.validateRequest(request, response)) {
       return;
     }
@@ -40,7 +41,7 @@ export class CompanyController extends BaseController<CompanyModel> {
     response.json(company);
   };
 
-  getAll = async (request: Request, response: Response) => {
+  getAll: ActionFunc = async (request, response) => {
     if (!this.validateRequest(request, response)) {
       return;
     }
@@ -55,7 +56,7 @@ export class CompanyController extends BaseController<CompanyModel> {
     response.json(companies);
   };
 
-  post = async (request: Request, response: Response) => {
+  post: ActionFunc = async (request, response) => {
     if (!this.validateRequest(request, response)) {
       return;
     }
@@ -66,7 +67,7 @@ export class CompanyController extends BaseController<CompanyModel> {
     response.json(company);
   };
 
-  put = async (request: Request, response: Response) => {
+  put: ActionFunc = async (request, response) => {
     if (!this.validateRequest(request, response)) {
       return;
     }
@@ -78,7 +79,7 @@ export class CompanyController extends BaseController<CompanyModel> {
     response.json(company);
   };
 
-  delete = async (request: Request, response: Response) => {
+  delete: ActionFunc = async (request, response) => {
     if (!this.validateRequest(request, response)) {
       return;
     }

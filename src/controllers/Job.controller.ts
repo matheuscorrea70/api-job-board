@@ -1,15 +1,15 @@
 import { JobModel } from "models/Job.model";
-import { Request, Response } from "express";
+import { Request } from "express";
 import { BaseController } from "./Base.controller";
 import {
   JobLevel,
   JobLocationType,
   JobType,
   TJob,
-  SearchJobPayload,
 } from "models/types/job.types";
 import { getPaginationParams } from "utils/params/getPaginationParams";
 import { Like } from "typeorm";
+import { ActionFunc } from "src/types/request.type";
 
 export class JobController extends BaseController<JobModel> {
   model = new JobModel();
@@ -73,7 +73,7 @@ export class JobController extends BaseController<JobModel> {
     };
   };
 
-  getOne = async (request: Request, response: Response) => {
+  getOne: ActionFunc = async (request, response) => {
     if (!this.validateRequest(request, response)) {
       return;
     }
@@ -84,7 +84,7 @@ export class JobController extends BaseController<JobModel> {
     response.json(job);
   };
 
-  post = async (request: Request, response: Response) => {
+  post: ActionFunc = async (request, response) => {
     if (!this.validateRequest(request, response)) {
       return;
     }
@@ -95,7 +95,7 @@ export class JobController extends BaseController<JobModel> {
     response.json(job);
   };
 
-  put = async (request: Request, response: Response) => {
+  put: ActionFunc = async (request, response) => {
     if (!this.validateRequest(request, response)) {
       return;
     }
@@ -107,7 +107,7 @@ export class JobController extends BaseController<JobModel> {
     response.json(job);
   };
 
-  getAll = async (request: Request, response: Response) => {
+  getAll: ActionFunc = async (request, response) => {
     if (!this.validateRequest(request, response)) {
       return;
     }
@@ -120,7 +120,7 @@ export class JobController extends BaseController<JobModel> {
     response.json(jobList);
   };
 
-  delete = async (request: Request, response: Response) => {
+  delete: ActionFunc = async (request, response) => {
     if (!this.validateRequest(request, response)) {
       return;
     }
