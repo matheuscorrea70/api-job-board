@@ -1,16 +1,16 @@
 import {
-  FindManyOptions,
-  FindOptionsWhere,
-  ObjectLiteral,
-  RemoveOptions,
-  Repository,
+  type FindManyOptions,
+  type FindOptionsWhere,
+  type ObjectLiteral,
+  type RemoveOptions,
+  type Repository,
 } from "typeorm";
 
 export abstract class BaseModel<Entity extends ObjectLiteral> {
   protected abstract _repository: Repository<Entity>;
 
-  find(options?: FindManyOptions<Entity>) {
-    return this._repository.find(options);
+  async find(options?: FindManyOptions<Entity>) {
+    return await this._repository.find(options);
   }
 
   async findWithPagination(
@@ -39,15 +39,15 @@ export abstract class BaseModel<Entity extends ObjectLiteral> {
     };
   }
 
-  findOneBy(where: FindOptionsWhere<Entity> | FindOptionsWhere<Entity>[]) {
-    return this._repository.findOneBy(where);
+  async findOneBy(where: FindOptionsWhere<Entity> | Array<FindOptionsWhere<Entity>>) {
+    return await this._repository.findOneBy(where);
   }
 
-  remove(entity: Entity, options?: RemoveOptions) {
-    return this._repository.remove(entity, options);
+  async remove(entity: Entity, options?: RemoveOptions) {
+    return await this._repository.remove(entity, options);
   }
 
-  softRemove(entity: Entity, options?: RemoveOptions) {
-    return this._repository.softRemove(entity, options);
+  async softRemove(entity: Entity, options?: RemoveOptions) {
+    return await this._repository.softRemove(entity, options);
   }
 }

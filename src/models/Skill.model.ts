@@ -5,9 +5,9 @@ import { Skill } from "./entities/Skill.entity";
 export class SkillModel extends BaseModel<Skill> {
   _repository = dataSource.getRepository(Skill);
 
-  save(names: string[]) {
+  async save(names: string[]) {
     const skills = names.map((name) => ({ name }));
 
-    return this._repository.save(skills);
+    return await this._repository.save(skills);
   }
 }

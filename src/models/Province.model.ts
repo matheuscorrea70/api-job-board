@@ -5,7 +5,7 @@ import { BaseModel } from "./Base.model";
 export class ProvinceModel extends BaseModel<Province> {
   _repository = dataSource.getRepository(Province);
 
-  findByCountry(countryId: string) {
-    return this._repository.findBy({ countryId });
+  async findByCountry(countryId: string) {
+    return await this._repository.findBy({ countryId });
   }
 }

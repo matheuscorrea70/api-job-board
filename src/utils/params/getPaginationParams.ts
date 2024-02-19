@@ -1,4 +1,4 @@
-import { Request } from "express";
+import { type Request } from "express";
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 10;

@@ -1,13 +1,13 @@
 import { CompanyModel } from "models/Company.model";
-import { Request } from "express";
+import { type Request } from "express";
 import { BaseController } from "./Base.controller";
 import { getPaginationParams } from "utils/params/getPaginationParams";
 import {
-  CompanySize,
-  TCompany,
-  SearchCompanyPayload,
+  type CompanySize,
+  type TCompany,
+  type SearchCompanyPayload,
 } from "models/types/company.types";
-import { ActionFunc } from "src/types/request.type";
+import { type ActionFunc } from "src/types/request.type";
 import { handleError } from "utils/errors/handleError";
 
 export class CompanyController extends BaseController<CompanyModel> {

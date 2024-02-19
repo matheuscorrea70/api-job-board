@@ -1,15 +1,15 @@
 import { JobModel } from "models/Job.model";
-import { Request } from "express";
+import { type Request } from "express";
 import { BaseController } from "./Base.controller";
 import {
-  JobLevel,
-  JobLocationType,
-  JobType,
-  TJob,
+  type JobLevel,
+  type JobLocationType,
+  type JobType,
+  type TJob,
 } from "models/types/job.types";
 import { getPaginationParams } from "utils/params/getPaginationParams";
 import { Like } from "typeorm";
-import { ActionFunc } from "src/types/request.type";
+import { type ActionFunc } from "src/types/request.type";
 import { handleError } from "utils/errors/handleError";
 
 export class JobController extends BaseController<JobModel> {

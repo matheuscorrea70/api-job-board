@@ -1,12 +1,12 @@
 import { Company } from "models/entities/Company.entity";
 import dataSource from "configs/dataSource";
 import { BaseModel } from "./Base.model";
-import { TCompany } from "./types/company.types";
+import { type TCompany } from "./types/company.types";
 
 export class CompanyModel extends BaseModel<Company> {
   _repository = dataSource.getRepository(Company);
 
-  save(payload: TCompany) {
-    return this._repository.save(payload);
+  async save(payload: TCompany) {
+    return await this._repository.save(payload);
   }
 }

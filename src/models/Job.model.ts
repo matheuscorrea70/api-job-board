@@ -1,11 +1,11 @@
 import { Job } from "models/entities/Job.entity";
 import dataSource from "configs/dataSource";
 import { CompanyModel } from "./Company.model";
-import { TJob } from "./types/job.types";
+import { type TJob } from "./types/job.types";
 import { BaseModel } from "./Base.model";
-import { Skill } from "./entities/Skill.entity";
+import { type Skill } from "./entities/Skill.entity";
 import { SkillModel } from "./Skill.model";
-import { FindOneOptions } from "typeorm";
+import { type FindOneOptions } from "typeorm";
 
 export class JobModel extends BaseModel<Job> {
   _repository = dataSource.getRepository(Job);
@@ -16,7 +16,7 @@ export class JobModel extends BaseModel<Job> {
     const loadedSkills: Skill[] = [];
 
     for (const skillName of skills) {
-      let skillObj = await skillModel.findOneBy({ name: skillName });
+      const skillObj = await skillModel.findOneBy({ name: skillName });
 
       if (skillObj) {
         loadedSkills.push(skillObj);
@@ -48,8 +48,8 @@ export class JobModel extends BaseModel<Job> {
     return companyEntity || undefined;
   }
 
-  save(data: TJob) {
-    return dataSource.transaction(async () => {
+  async save(data: TJob) {
+    return await dataSource.transaction(async () => {
       const [company, skills] = await Promise.all([
         this._saveCompany(data),
         this._saveSkills(data.skills),
@@ -72,12 +72,12 @@ export class JobModel extends BaseModel<Job> {
       job.country = data.country;
       job.province = data.province;
 
-      return this._repository.save(job);
+      return await this._repository.save(job);
     });
   }
 
-  findOne(options: FindOneOptions<Job>) {
-    return this._repository.findOne({
+  async findOne(options: FindOneOptions<Job>) {
+    return await this._repository.findOne({
       relations: {
         company: true,
         country: true,

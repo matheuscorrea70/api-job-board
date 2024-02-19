@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { type Request, type Response } from "express";
 import { validationResult } from "express-validator";
 
 export abstract class BaseController<Model = undefined> {

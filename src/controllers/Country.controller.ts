@@ -1,6 +1,6 @@
 import { CountryModel } from "models/Country.model";
 import { BaseController } from "./Base.controller";
-import { ActionFunc } from "src/types/request.type";
+import { type ActionFunc } from "src/types/request.type";
 import { handleError } from "utils/errors/handleError";
 
 export class CountryController extends BaseController<CountryModel> {
