@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router } from "express";
 import company from "./company.route";
 import job from "./job.route";
 import country from "./country.route";

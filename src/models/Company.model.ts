@@ -6,7 +6,7 @@ import { type TCompany } from "./types/company.types";
 export class CompanyModel extends BaseModel<Company> {
   _repository = dataSource.getRepository(Company);
 
-  async save(payload: TCompany) {
+  async save(payload: TCompany): Promise<TCompany & Company> {
     return await this._repository.save(payload);
   }
 }

@@ -1,7 +1,7 @@
-import { body } from "express-validator";
+import { body, type ValidationChain } from "express-validator";
 import { JobLevel, JobLocationType, JobType } from "models/types/job.types";
 
-export const bodyJobValidator = () => [
+export const bodyJobValidator = (): ValidationChain[] => [
   body(["title", "description"]).isString(),
   body("url").isURL(),
   body("company").custom(async (value) => {

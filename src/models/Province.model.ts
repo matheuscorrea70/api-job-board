@@ -5,7 +5,7 @@ import { BaseModel } from "./Base.model";
 export class ProvinceModel extends BaseModel<Province> {
   _repository = dataSource.getRepository(Province);
 
-  async findByCountry(countryId: string) {
+  async findByCountry(countryId: string): Promise<Province[]> {
     return await this._repository.findBy({ countryId });
   }
 }

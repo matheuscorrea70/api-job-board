@@ -1,7 +1,7 @@
 import { Job } from "models/entities/Job.entity";
 import dataSource from "configs/dataSource";
 import { CompanyModel } from "./Company.model";
-import { type TJob } from "./types/job.types";
+import { type TJobCompany, type TJob } from "./types/job.types";
 import { BaseModel } from "./Base.model";
 import { type Skill } from "./entities/Skill.entity";
 import { SkillModel } from "./Skill.model";
@@ -30,7 +30,7 @@ export class JobModel extends BaseModel<Job> {
     return [...loadedSkills, ...savedSkills];
   }
 
-  private async _saveCompany(data: TJob) {
+  private async _saveCompany(data: TJob): Promise<TJobCompany | undefined> {
     if (data.company.id) {
       return data.company
     }
@@ -45,10 +45,10 @@ export class JobModel extends BaseModel<Job> {
       });
     }
 
-    return companyEntity || undefined;
+    return companyEntity ?? undefined;
   }
 
-  async save(data: TJob) {
+  async save(data: TJob): Promise<Job> {
     return await dataSource.transaction(async () => {
       const [company, skills] = await Promise.all([
         this._saveCompany(data),
@@ -76,7 +76,7 @@ export class JobModel extends BaseModel<Job> {
     });
   }
 
-  async findOne(options: FindOneOptions<Job>) {
+  async findOne(options: FindOneOptions<Job>): Promise<Job | null> {
     return await this._repository.findOne({
       relations: {
         company: true,

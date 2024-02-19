@@ -1,3 +1,5 @@
+import { type FindOperator } from "typeorm";
+
 export enum JobLocationType {
   Hybrid = "Hybrid",
   OnSite = "On-site",
@@ -50,4 +52,12 @@ export type TJob = {
   province?: TJobProvince;
 };
 
-export type SearchJobPayload = Partial<TJob>;
+export type SearchJobPayload = {
+  title?: FindOperator<string>;
+  description?: FindOperator<string>;
+  type?: JobType;
+  locationType?: JobLocationType;
+  level?: JobLevel;
+  company?: Partial<TJobCompany>;
+  country?: Partial<TJobCountry>;
+};

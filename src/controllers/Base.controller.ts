@@ -4,7 +4,7 @@ import { validationResult } from "express-validator";
 export abstract class BaseController<Model = undefined> {
   abstract model: Model;
 
-  validateRequest = (request: Request, response: Response) => {
+  validateRequest = (request: Request, response: Response): boolean => {
     const result = validationResult(request);
 
     if (!result.isEmpty()) {
@@ -16,7 +16,7 @@ export abstract class BaseController<Model = undefined> {
     return true
   }
 
-  getParamId = (request: Request) => {
+  getParamId = (request: Request): number => {
     return Number(request.params.id)
   }
 }

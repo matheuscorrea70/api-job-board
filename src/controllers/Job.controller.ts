@@ -1,11 +1,12 @@
 import { JobModel } from "models/Job.model";
 import { type Request } from "express";
 import { BaseController } from "./Base.controller";
-import {
-  type JobLevel,
-  type JobLocationType,
-  type JobType,
-  type TJob,
+import type {
+  SearchJobPayload,
+  JobLevel,
+  JobLocationType,
+  JobType,
+  TJob,
 } from "models/types/job.types";
 import { getPaginationParams } from "utils/params/getPaginationParams";
 import { Like } from "typeorm";
@@ -15,12 +16,14 @@ import { handleError } from "utils/errors/handleError";
 export class JobController extends BaseController<JobModel> {
   model = new JobModel();
 
-  getSearchParams = (request: Request) => {
+  getSearchParams = (request: Request): SearchJobPayload => {
     const query = request.query || {};
 
     return {
-      ...(query.title && { title: Like(`%${query.title}%`) }),
-      ...(query.description && { description: Like(`%${query.description}%`) }),
+      ...(query.title && { title: Like(`%${query.title as string}%`) }),
+      ...(query.description && {
+        description: Like(`%${query.description as string}%`),
+      }),
       ...(query.type && { type: query.type as JobType }),
       ...(query.locationType && {
         locationType: query.locationType as JobLocationType,

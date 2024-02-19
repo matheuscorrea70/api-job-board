@@ -1,3 +1,3 @@
-import { param } from "express-validator";
+import { param, type ValidationChain } from "express-validator";
 
-export const paramIdValidator = () => [param("id").isNumeric()];
+export const paramIdValidator = (): ValidationChain[] => [param("id").isNumeric()];
