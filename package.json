@@ -14,9 +14,11 @@
     "url": "git"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.5",
     "body-parser": "~1.20.2",
     "express": "~4.18.2",
     "express-validator": "~7.0.1",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "~3.9.1",
     "typeorm": "~0.3.20",
     "typescript": "~5.3.3"

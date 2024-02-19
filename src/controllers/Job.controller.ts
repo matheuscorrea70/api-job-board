@@ -10,6 +10,7 @@ import {
 import { getPaginationParams } from "utils/params/getPaginationParams";
 import { Like } from "typeorm";
 import { ActionFunc } from "src/types/request.type";
+import { handleError } from "utils/errors/handleError";
 
 export class JobController extends BaseController<JobModel> {
   model = new JobModel();
@@ -74,64 +75,86 @@ export class JobController extends BaseController<JobModel> {
   };
 
   getOne: ActionFunc = async (request, response) => {
-    if (!this.validateRequest(request, response)) {
-      return;
+    try {
+      if (!this.validateRequest(request, response)) {
+        return;
+      }
+
+      const id = this.getParamId(request);
+      const job = await this.model.findOne({ where: { id } });
+
+      response.json(job);
+    } catch (error) {
+      handleError(error, response);
     }
-
-    const id = this.getParamId(request);
-    const job = await this.model.findOne({ where: { id } });
-
-    response.json(job);
   };
 
   post: ActionFunc = async (request, response) => {
-    if (!this.validateRequest(request, response)) {
-      return;
+    try {
+      if (!this.validateRequest(request, response)) {
+        return;
+      }
+
+      const payload = this.getBodyJob(request);
+      const job = await this.model.save(payload);
+
+      response.json(job);
+    } catch (error) {
+      handleError(error, response);
     }
-
-    const payload = this.getBodyJob(request);
-    const job = await this.model.save(payload);
-
-    response.json(job);
   };
 
   put: ActionFunc = async (request, response) => {
-    if (!this.validateRequest(request, response)) {
-      return;
+    try {
+      if (!this.validateRequest(request, response)) {
+        return;
+      }
+
+      const id = this.getParamId(request);
+      const payload = this.getBodyJob(request);
+      const job = await this.model.save({ ...payload, id });
+
+      response.json(job);
+    } catch (error) {
+      handleError(error, response);
     }
-
-    const id = this.getParamId(request);
-    const payload = this.getBodyJob(request);
-    const job = await this.model.save({ ...payload, id });
-
-    response.json(job);
   };
 
   getAll: ActionFunc = async (request, response) => {
-    if (!this.validateRequest(request, response)) {
-      return;
+    try {
+      if (!this.validateRequest(request, response)) {
+        return;
+      }
+
+      const { page, limit } = getPaginationParams(request);
+      const where = this.getSearchParams(request);
+
+      const jobList = await this.model.findWithPagination(page, limit, {
+        where,
+      });
+
+      response.json(jobList);
+    } catch (error) {
+      handleError(error, response);
     }
-
-    const { page, limit } = getPaginationParams(request);
-    const where = this.getSearchParams(request);
-
-    const jobList = await this.model.findWithPagination(page, limit, { where });
-
-    response.json(jobList);
   };
 
   delete: ActionFunc = async (request, response) => {
-    if (!this.validateRequest(request, response)) {
-      return;
+    try {
+      if (!this.validateRequest(request, response)) {
+        return;
+      }
+
+      const id = this.getParamId(request);
+      const job = await this.model.findOneBy({ id });
+
+      if (job) {
+        await this.model.softRemove(job);
+      }
+
+      response.json();
+    } catch (error) {
+      handleError(error, response);
     }
-
-    const id = this.getParamId(request);
-    const job = await this.model.findOneBy({ id });
-
-    if (job) {
-      await this.model.softRemove(job);
-    }
-
-    response.json();
   };
 }
